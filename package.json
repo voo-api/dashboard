@@ -1,0 +1,29 @@
+{
+  "name": "voo-dump",
+  "version": "0.0.1",
+  "description": "Flight dump from many sources",
+  "main": "voo-dump.js",
+  "dependencies": {
+    "ejs": "^2.4.2",
+    "bluebird": "*",
+    "request": "2.73",
+    "request-promise": "4.0.0",
+    "express": "^4.14.0",
+    "jade": "^1.11.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node api-consumer.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/voo-api/dump.git"
+  },
+  "author": "vtrbtf",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/voo-api/dump/issues"
+  },
+  "homepage": "https://github.com/voo-api/dump#readme"
+}
