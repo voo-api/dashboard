@@ -13,7 +13,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node api-consumer.js",
+    "start": "node dashboard.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

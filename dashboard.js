@@ -32,28 +32,27 @@ source = {
 }
 
 app.get('/:from/:fromDate/:to/:toDate', function (req, res) {      
+  res.render('index.html');
+});
+
+app.get('/:from/:fromDate/:to/:toDate/voo.json', function (req, res) {      
       var params = req.params;  
-      var accepts = req.accepts(['html', 'json']);
-      if (accepts == "html") {
-        res.render('index.html');
-      } else {
-        var urls = [rp(source.url(params.from, params.to, params.fromDate)), rp(source.url(params.to, params.from, params.toDate))];
-        Promise.all(urls).then(function (data) {
-          var responses = data.map(function (elm) {
-            return JSON.parse(elm)
-          })
-          var from = responses.filter(function(elm) {
-            return elm.result.data.items[0].itinerary.locations[0].departure.city.code == params.from.toUpperCase()
-          })
-          var to = responses.filter(function(elm){
-            return elm.result.data.items[0].itinerary.locations[0].departure.city.code == params.to.toUpperCase()
-          })
-          res.send({
-            from : source.extractAndMap(from[0]),
-            to : source.extractAndMap(to[0])
-          })
-         });
-      }      
+      var urls = [rp(source.url(params.from, params.to, params.fromDate)), rp(source.url(params.to, params.from, params.toDate))];
+      Promise.all(urls).then(function (data) {
+        var responses = data.map(function (elm) {
+          return JSON.parse(elm)
+        })
+        var from = responses.find(function(elm) {
+          return elm.result.data.items[0].itinerary.locations[0].departure.city.code == params.from.toUpperCase()
+        })
+        var to = responses.find(function(elm){
+          return elm.result.data.items[0].itinerary.locations[0].departure.city.code == params.to.toUpperCase()
+        })
+        res.send({
+          from : source.extractAndMap(from),
+          to : source.extractAndMap(to)
+        })
+      });        
 });
 
 app.listen(port, function (err) {
